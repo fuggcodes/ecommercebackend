@@ -24,11 +24,30 @@ router.get('/', (req, res) => {
       res.status(500).json(err);
     });
 });
-  // be sure to include its associated Products
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
+  Category.findOne({
+  where: {
+    id: req.params.id,
+  },
+  include: {
+    model: Product,
+    attributes: ["id", "product_name", "price", "stock", "category_id"],
+  },
+})
+  .then((dbCategoryData) => {
+    if (!dbCategoryData) {
+      res.status(404).json({ message: "no categories found" });
+      return;
+    }
+    res.json(dbCategoryData);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.post('/', (req, res) => {
