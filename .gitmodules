@@ -1,0 +1,3 @@
+[submodule "fantastic-ubmrella"]
+	path = fantastic-ubmrella
+	url = git@github.com:coding-boot-camp/fantastic-umbrella.git
